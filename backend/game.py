@@ -53,7 +53,7 @@ class Board():
             elif guess in self.correct:
                 toRet.append("white")
 
-        if not any([c for c in toRet if c != "black"]) and toRet:
+        if not any([c for c in toRet if c != "black"]) and len(toRet) == self.nrBalls:
             return 0, toRet
 
         return 1, toRet
@@ -69,11 +69,4 @@ def genId(mode=None):
 
 
 
-if __name__ == "__main__":
-    r = [2, 2]
-    id = genId()
-    test = Board(False, 4, 6, id)
-    test.addPlayer(id)
-    while r[0] != 0:
-        r = test.makeGuess(id, input(">> ").split())
-        print(*r)
+    
