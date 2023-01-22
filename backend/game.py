@@ -11,6 +11,7 @@ class Board():
         self.boardId = genId("board")
         self.boards = {} # id:board
         self.correct = self.genCorrect()
+        self.id = id
         print(self.correct)
 
         self.addPlayer(id)
@@ -64,7 +65,7 @@ class Board():
 def genId(mode=None):
         id = ""
         l = 4 if mode == "board" else 15
-        id = "".join([str(i) for i in range(l)])
+        id = "".join([str(randint(0, 9)) for i in range(l)])
         return id
 
 
