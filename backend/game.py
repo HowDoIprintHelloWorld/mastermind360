@@ -11,7 +11,11 @@ class Board():
         self.boardId = genId("board")
         self.boards = {} # id:board
         self.correct = self.genCorrect()
+
+        #print(self.correct)
+      
         self.id = id
+        
         print(self.correct)
 
         self.addPlayer(id)
@@ -39,20 +43,23 @@ class Board():
     # ids: 0=correct, 1=part wrong, 2=wrong guess count, 3=unknown id, 4 = unknown color
     def makeGuess(self, id, guessSeq):
         toRet = []
-        print(f"{len(guessSeq)=}, {self.nrBalls=}")
+        # print(f"{len(guessSeq)=}, {self.nrBalls=}")
         if len(guessSeq) != self.nrBalls:
             return 2, []
         elif id not in self.ids:
             return 3, []
-        
+
+        popped = []
         for indx, guess in enumerate(guessSeq):
             guess = guess.strip().lower()
             if guess not in self.colors:
                 return 4, []
             if self.correct[indx] == guess:
                 toRet.append("black")
-            elif guess in self.correct:
-                toRet.append("white")
+                popped.append(guess)
+        for guess in guessSeq:
+          if guess in self.correct and guess not in popped:
+              toRet.append("white")
 
         if not any([c for c in toRet if c != "black"]) and len(toRet) == self.nrBalls:
             return 0, toRet

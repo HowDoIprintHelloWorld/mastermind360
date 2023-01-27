@@ -16,7 +16,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def main():
-    return "Enter a game ID!"
+    return ts
 
 
 @app.route("/game/<id>/<player>") #, methods=["GET", "POST"])
@@ -32,8 +32,20 @@ def game(id, player):
         
     args = request.args
     if "action" in args.keys():
-        action = args["action"]
-        # if action.strip() == ""
+        action = args["action"].split()
+        if len(action) >= 2:
+          print("Len greater two")
+          if action[0] == "makemove":
+            print("Action is makemove")
+            resp = game.makeGuess(player, action[1:])
+            message = ["You won!", "Move successful", "Wrong guess count!", "unknown ID", "Unknown color"][resp[0]]
+            return jsonify({"message":message, "response":resp})
+        elif len(action) == 1:
+          if action[0] == "getcolors":
+            return jsonify({"message":"Here are the colors", "response":game.colors})
+            
+            return jsonify({"message":message, "response":resp})
+        print(action, len(action))
         return action
     else:
         return jsonify({"message":"no action specified"})
@@ -48,19 +60,21 @@ def simulate():
     playerId = genId()
     test.addPlayer(playerId)
     print(f"Game made! {id}/{playerId}")
-    return test
+    return test, f"{id}/{playerId}", playerId
     
-    
-def siminput(test):    
+
+
+def siminput(test, id):    
+    r = [2, 2]
     while r[0] != 0:
         r = test.makeGuess(id, input(">> ").split())
         print(*r)
-        
+
 
 
 if __name__ == "__main__":
     games = []
-    test = simulate()
+    test, ts, id = simulate()
     games.append(test)
-    #siminput(test)
-    app.run()
+    #siminput(test, id)
+    app.run("0.0.0.0")
