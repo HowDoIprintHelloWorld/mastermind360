@@ -23,6 +23,13 @@ def siminput(test, id):
 
 
 
+def printhelp():
+  with open("help.txt", "r") as f:
+    print(f.read())
+
+
+
 if __name__ == "__main__":
+  printhelp()
   board, ids, playerid = simulate()
   siminput(board, playerid)
