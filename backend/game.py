@@ -21,7 +21,7 @@ class Board():
         self.addPlayer(id)
 
 
-    
+    # Generates a list of colors with desired length
     def genColors(self, nrColors):
         colors = ["red", "blue", "black", "white", "gray", "purple", "yellow", "orange"]
         if nrColors >= len(colors) or nrColors <= 1:
@@ -29,12 +29,14 @@ class Board():
         return colors[:nrColors]
 
 
+    # Adds a player's id to players list
     def addPlayer(self, id):
         if id not in self.ids:
             self.ids.append(id)
             self.boards[id] = []
 
     
+    # Generates the correct code
     def genCorrect(self):
         return sample(self.colors, self.nrBalls)
 
@@ -50,6 +52,8 @@ class Board():
             return 3, []
 
         popped = []
+        # Goes through guesses and checks both for black responses
+        # and then for white responses
         for indx, guess in enumerate(guessSeq):
             guess = guess.strip().lower()
             if guess not in self.colors:
@@ -68,7 +72,7 @@ class Board():
 
             
 
-
+# Generates IDs for board or player
 def genId(mode=None):
         id = ""
         l = 4 if mode == "board" else 15
