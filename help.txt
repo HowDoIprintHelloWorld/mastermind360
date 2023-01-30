@@ -1,5 +1,5 @@
 1) A secret code is generated consisting of 5 colors (Colors will not repeat!)
-2) Randomly chose a sequence of colors
+2) Randomly chose a sequence of colors (Use format: "color, color, color, color")
 3) If a color you chose is in the correct sequence, you get a white bead
 4) If a color you chose is also at the same place in the correct sequence, you get a black bead
 5) These beads have no value, they are simply an indicator as to how close you are to the right sequence
