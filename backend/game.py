@@ -64,6 +64,8 @@ class Board():
         for guess in guessSeq:
           if guess in self.correct and guess not in popped:
               toRet.append("white")
+        
+        toRet  = sorted(toRet)
 
         if not any([c for c in toRet if c != "black"]) and len(toRet) == self.nrBalls:
             return 0, toRet
